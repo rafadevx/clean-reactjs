@@ -1,0 +1,7 @@
+{
+  "name": "clean-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Rafael Del Grossi <rafa.comp@gmail.com>",
+  "license": "MIT"
+}
