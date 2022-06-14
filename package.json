@@ -5,13 +5,14 @@
   "scripts": {
     "start": "webpack-dev-server --open",
     "test": "jest --passWithNoTests --no-cache --runInBand",
-    "test:watch": "yarn jest -- --watch",
+    "test:watch": "yarn jest --watch",
     "test:staged": "yarn jest -- --findRelatedTests",
     "test:ci": "yarn jest -- --coverage"
   },
   "author": "Rafael Del Grossi <rafa.comp@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@testing-library/react": "^13.3.0",
     "@types/axios": "^0.14.0",
     "@types/faker": "4.1.11",
     "@types/jest": "^28.1.0",
@@ -34,6 +35,7 @@
     "husky": "^8.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.1",
     "lint-staged": "^13.0.0",
     "node-sass": "^7.0.1",
     "sass-loader": "^13.0.0",
