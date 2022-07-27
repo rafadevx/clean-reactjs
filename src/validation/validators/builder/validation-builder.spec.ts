@@ -1,6 +1,6 @@
 import { EmailValidation, MinLengthValidation, RequiredFieldValidation } from '@/validation/validators'
 import { ValidationBuilder as sut } from './validation-builder'
-import faker, { fake } from 'faker'
+import faker from 'faker'
 
 let field = ''
 
