@@ -9,11 +9,13 @@
     "test:staged": "yarn jest -- --findRelatedTests",
     "test:ci": "yarn jest -- --coverage",
     "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info",
-    "check": "npm-check -u -s"
+    "check": "npm-check -u -s",
+    "check-update": "yarn upgrade-interactive --latest"
   },
   "author": "Rafael Del Grossi <rafa.comp@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@faker-js/faker": "^7.4.0",
     "@testing-library/react": "^13.3.0",
     "@types/axios": "^0.14.0",
     "@types/faker": "^6.6.9",
