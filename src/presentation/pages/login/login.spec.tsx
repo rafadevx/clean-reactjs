@@ -5,13 +5,14 @@ import { createMemoryHistory } from 'history'
 import 'jest-localstorage-mock'
 import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
 import { Login } from '@/presentation/pages'
-import { ValidationSpy, AuthenticationSpy } from '@/presentation/test'
+import { ValidationSpy, AuthenticationSpy, SaveAccessTokenMock } from '@/presentation/test'
 import { InvalidCredentialsError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RenderResult
   validationSpy: ValidationSpy
   authenticationSpy: AuthenticationSpy
+  saveAccesTokenMock: SaveAccessTokenMock
 }
 
 type SutParams = {
@@ -22,16 +23,22 @@ const history = createMemoryHistory({ initialEntries: ['/login'] })
 const makeSut = (params?: SutParams): SutTypes => {
   const validationSpy = new ValidationSpy()
   const authenticationSpy = new AuthenticationSpy()
+  const saveAccesTokenMock = new SaveAccessTokenMock()
   validationSpy.errorMessage = params?.validationError
   const sut = render(
     <HistoryRouter history={history}>
-      <Login validation={validationSpy} authentication={authenticationSpy} />
+      <Login 
+        validation={validationSpy}
+        authentication={authenticationSpy}
+        saveAccessToken={saveAccesTokenMock}
+      />
     </HistoryRouter>
   )
   return {
     sut,
     validationSpy,
-    authenticationSpy
+    authenticationSpy,
+    saveAccesTokenMock
   }
 }
 
@@ -184,11 +191,11 @@ describe('Login Component', () => {
     })
   })
 
-  test('Should add accessToken to localstorage on success', async () => {
-    const { sut, authenticationSpy } = makeSut()
+  test('Should call SaveAccessToken on success', async () => {
+    const { sut, authenticationSpy, saveAccesTokenMock } = makeSut()
     simulateValidSubmit(sut)
     await waitFor(async () => {
-      expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accesToken)
+      expect(saveAccesTokenMock.accessToken).toBe(authenticationSpy.account.accesToken)
       expect(history.location.pathname).toBe('/')
     })
   })
